@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# P2P File Sharing System
 
-## Getting Started
+A peer-to-peer file sharing web application that allows users to transfer files directly between browsers using WebRTC.
 
-First, run the development server:
+The backend is used only for session management and WebRTC signaling. Actual file data is transferred directly between connected devices and is not stored on the server.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Direct peer-to-peer file transfer using WebRTC
+- Multiple file selection and transfer
+- Multiple receivers
+- Unique session/access code
+- 250 MB maximum size per file
+- 64 KB file chunking
+- Transfer progress tracking
+- Transfer speed display
+- Cancel current file transfer
+- Automatic file download on receiver
+- Session expiration
+- Connection and error handling
+- Basic input validation
+- File management with remove and clear-all options
+- Responsive user interface
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Frontend
+- Next.js
+- React
+- JavaScript
+- CSS
 
-## Learn More
+### Backend
+- Node.js
+- Express.js
+- Socket.IO
 
-To learn more about Next.js, take a look at the following resources:
+### Communication
+- WebRTC
+- RTCDataChannel
+- STUN
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How It Works
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```text
+Sender Browser
+     |
+     |  Session Code
+     v
+Socket.IO Server
+     |
+     |  WebRTC Signaling
+     v
+Receiver Browser
+     |
+     |  WebRTC DataChannel
+     v
+Direct File Transfer
